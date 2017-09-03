@@ -5,40 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
-
+using System.Data.OleDb;
+using ConectionToDataBase.WorkingWithOleDb;
+/*Задание 1. Приложение чтения данных.
+Создать приложение для подключения к базе данных, с использованием технологии ADO.NET. 
+К базе данных (med.mdf) подключится с использованием одного из поставщиков данных. 
+Необходимые поставщики данных: - OLE DB.
+Вывести на экран информацию, используя различные запросы:
+•	полную информацию о пациентах больницы;
+•	полную информацию о врачах в больницы;
+•	список пациентов с указанием их лечащих врачей;
+•	вывести информацию о стоимостях посещений пациентами врачей (фамилия пациента, фамилия врача, стоимость);
+•	вывести информацию о поставленных диагнозах за период (фамилия врача, диагноз, дата).
+•	вывести информацию о самом дорогом визите к врачу (фамилия пациента, фамилия врача, стоимость) ;
+•	вывести информацию о количестве пациентов каждого врача (фамилия врача и количество пациентов);
+•	вывести информацию о суммарной стоимости посещений каждого врача (фамилия врача и сумма).*/
 namespace ConectionToDataBase
 {
 class Program
 {
     static void Main(string[] args)
     {
-        //string connectionString = @"Data Source=.\SQLEXPRESS14; Initial Catalog=Internet Shop; Integrated Security=True";
-        string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-        string query = "Select * From Clients";
-        using (SqlConnection connection = new SqlConnection(connectionString))
-        {
-            connection.Open();
-            SqlCommand cmd = new SqlCommand (query, connection);
-            SqlDataReader dr = cmd.ExecuteReader();
-            if (dr.HasRows) // если есть данные
-            {
-                Console.WriteLine($"{dr.GetName(0),2}{dr.GetName(1),15}{dr.GetName(2),30}{dr.GetName(3),15}");
-                while (dr.Read())
-                {
-                    Console.WriteLine($"{dr.GetValue(0),2}{dr.GetValue(1),33}{dr.GetValue(2),20}{dr.GetValue(3),33}");
-                }
-                    Console.WriteLine("Подключение открыто\n" +
-                                      "Свойства подключения:" +
-                                      $"\n\tСтрока подключения: {connection.ConnectionString}" +
-                                      $"\n\tБаза данных: {connection.Database}" +
-                                      $"\n\tСервер: {connection.DataSource}" +
-                                      $"\n\tВерсия сервера: {connection.ServerVersion}" +
-                                      $"\n\tСостояние: {connection.State}" +
-                                      $"\n\tWorkstationld: {connection.WorkstationId}");
-                }
-        }
-        Console.WriteLine("Подключение закрыто...");
-        Console.Read();
+        UseProviderOleDb.CreateQueryToDb();
     }
 }
 }
