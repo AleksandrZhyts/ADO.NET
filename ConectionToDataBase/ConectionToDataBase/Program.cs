@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data.OleDb;
-using ConectionToDataBase.WorkingWithOleDb;
+using ConectionToDataBase.WorkingWithDb;
 /*Задание 1. Приложение чтения данных.
 Создать приложение для подключения к базе данных, с использованием технологии ADO.NET. 
 К базе данных (med.mdf) подключится с использованием одного из поставщиков данных. 
@@ -26,7 +26,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        UseProviderOleDb.CreateQueryToDb();
+        UseProviderDb.CreateQueryToDb();
     }
 }
 }
